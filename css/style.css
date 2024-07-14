@@ -1,7 +1,6 @@
 body {
-  background-color: teal;
+  background-color: #81a263;
   text-align: center;
-  margin: 20px;
 }
 canvas {
   background-color: white;
@@ -9,4 +8,36 @@ canvas {
 
 .customer-name {
   cursor: pointer;
+}
+
+/* ========== footer (Personal Contact) ========== */
+footer {
+  background-color: #365e32;
+  padding: 20px 0;
+}
+footer .social {
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5px;
+}
+footer .social .fa-brands {
+  color: #fff;
+}
+footer .fa-circle {
+  color: #e7d37f;
+  transition: 0.3s;
+}
+footer .fa-brands {
+  transition: 0.3s;
+}
+footer .fa-stack:hover .fa-brands {
+  color: #fff;
+}
+footer .fa-stack:hover .fa-circle {
+  color: #36ba98;
+}
+footer p strong {
+  color: #36ba98;
 }
