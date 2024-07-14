@@ -4,7 +4,7 @@ async function getData(){
     let response = await fetch(api)
     response = await response.json()
     // console.log(response) // => for testing
-    displayData(response)
+    displayData(response) // => call displayData function
 }
 
 // ========== function to display data ==========
@@ -17,7 +17,7 @@ function displayData(data) {
             if(transactions[j].customer_id === customers[i].id){
                 cartona += 
                     `<tr>
-                        <td>${i+1}</td>
+                        <td>${transactions[j].id}</td>
                         <td>${customers[i].name}</td>
                         <td>${transactions[j].date}</td>
                         <td>${transactions[j].amount}</td>
