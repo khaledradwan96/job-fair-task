@@ -1,11 +1,15 @@
 // ========== function to get data from json file ==========
 async function getData(){
     const api = 'js/data.json'
-    let response = await fetch(api)
-    let data = await response.json()
-    let customers = data.customers
-    let transactions = data.transactions
-    init(customers, transactions) // => call to start app
+    try{
+        let response = await fetch(api)
+        if (!response.ok) throw new Error('Network response was not ok');
+        let data = await response.json()
+        init(data.customers, data.transactions); // => call to start app
+    } catch{
+        console.error('Failed to fetch data:', error);
+    }
+
 }
 getData() // => to start app
 
@@ -52,8 +56,18 @@ function init(customers, transactions) {
         }
         displayData(filteredTransactions);
     }
-    customerFilter.addEventListener('input', filterData)
-    amountFilter.addEventListener('input', filterData)
+
+    // ========== function Debouncing Input ==========
+    // For the filter inputs, consider debouncing to prevent excessive filtering operations as the user types.
+    function debounce(func, wait) {
+        let timeout;
+        return function(...args) {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => func.apply(this, args), wait);
+        };
+    }
+    customerFilter.addEventListener('input', debounce(filterData, 300));
+    amountFilter.addEventListener('input', debounce(filterData, 300));
 
     // ========== function to update graph ==========
     function updateGraph(customerId, customerName){
