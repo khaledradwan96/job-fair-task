@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Customer & Transaction</title>
 
     <!-- ========== CSS files ========== -->
     <link rel="stylesheet" href="css/all.min.css">
@@ -17,35 +17,35 @@
     <h1>Route job fair task</h1>
     <h3>Customer and Transaction Data</h3>
 
-    <div class="row mb-2">
-        <div class="col-sm-6">
-            <input type="text" id="customerFilter" class="form-control"
-                placeholder="Filter by customer name">
+    <section class="container">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <input type="text" id="customerFilter" class="form-control" placeholder="Filter by customer name">
+            </div>
+            <div class="col-sm-6">
+                <input type="number" id="amountFilter" class="form-control" placeholder="Filter by transaction amount">
+            </div>
         </div>
-        <div class="col-sm-6">
-            <input type="number" id="amountFilter" class="form-control"
-                placeholder="Filter by transaction amount">
-        </div>
-    </div>
-    <table class="table table-success table-striped">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>customer</th>
-                <th>transactions date</th>
-                <th>amount</th>
-            </tr>
-        </thead>
-        <tbody id="data-container">
-
-        </tbody>
-    </table>
+        <table class="table table-success table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>customer</th>
+                    <th>transactions date</th>
+                    <th>amount</th>
+                </tr>
+            </thead>
+            <tbody id="data-container"> </tbody>
+        </table>
 
 
+        <canvas id="transactionGraph" width="400" height="200"></canvas>
+    </section>
 
     <!-- ========== JS files ========== -->
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/jquery-3.7.1.min.js"></script>
+    <!-- <script src="js/bootstrap.bundle.min.js"></script> -->
+    <!-- <script src="js/jquery-3.7.1.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="js/main.js"></script>
 
 </body>

@@ -3,3 +3,10 @@ body {
   text-align: center;
   margin: 20px;
 }
+canvas {
+  background-color: white;
+}
+
+.customer-name {
+  cursor: pointer;
+}

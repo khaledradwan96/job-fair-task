@@ -13,6 +13,8 @@ function init(customers, transactions) {
     const container = document.getElementById('data-container')
     const customerFilter = document.getElementById('customerFilter')
     const amountFilter = document.getElementById('amountFilter')
+    const ctx = document.getElementById('transactionGraph').getContext('2d')
+    let transactionChart
     
     // ========== function to display data ==========
     function displayData(transactions){
@@ -23,10 +25,10 @@ function init(customers, transactions) {
                 if(transactions[j].customer_id === customers[i].id){
                     cartona += 
                         `<tr>
-                            <td>${transactions[j].id}</td>
-                            <td>${customers[i].name}</td>
+                            <td>${j+1}</td>
+                            <td class="customer-name">${customers[i].name}</td>
                             <td>${transactions[j].date}</td>
-                            <td>${transactions[j].amount}</td>
+                            <td>$${transactions[j].amount}</td>
                         </tr>`
                 }
             }
@@ -50,9 +52,59 @@ function init(customers, transactions) {
         }
         displayData(filteredTransactions);
     }
-
     customerFilter.addEventListener('input', filterData)
     amountFilter.addEventListener('input', filterData)
-    displayData(transactions)
-}
 
+    // ========== function to update graph ==========
+    function updateGraph(customerId, customerName){
+        let filteredTransactions = [];
+        for(let i=0; i<transactions.length; i++){
+            let transaction = transactions[i];
+            if (transaction.customer_id === customerId) {
+                filteredTransactions.push(transaction);
+            }
+        }
+        let dates = []
+        let amounts = []
+        for(let i=0; i<filteredTransactions.length; i++){
+            dates.push(filteredTransactions[i].date);
+            amounts.push(filteredTransactions[i].amount);
+        }
+        if (transactionChart) {
+            transactionChart.destroy();
+        }
+        transactionChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: dates,
+                datasets: [{
+                    label: `Transaction Amount for ${customerName}`,
+                    data: amounts,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderWidth: 2,
+                    pointBackgroundColor: 'rgba(255, 99, 132, 1)',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: 'rgba(255, 99, 132, 1)',
+                    lineTension: 0.3 // Smooth the line
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+
+    container.addEventListener('click', (event) => {
+        const customerName = event.target.closest('tr').children[1].textContent;
+        const customer = customers.find(c => c.name === customerName);
+        updateGraph(customer.id, customer.name);
+    });
+
+    displayData(transactions);
+}
